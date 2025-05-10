@@ -77,30 +77,9 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL openwrt
+        git clone $REPO_URL openwrt -b $REPO_BRANCH
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        
-    - name: 切换分支
-      working-directory: ./openwrt
-      id: var
-      run: |
-        case $REPO_BRANCH in
-          openwrt-24.10)
-            _release_tag=$(git tag --sort=taggerdate --list 'v24.*' | tail -1)
-            git checkout $_release_tag
-            _prerelease=false
-            ;;
-          openwrt-23.05)
-            _release_tag=$(git tag --sort=taggerdate --list 'v23.*' | tail -1)
-            git checkout $_release_tag
-            _prerelease=false
-            ;;
-          *)
-            echo "Can't get local/upstream's branch/tags"
-            ;;
-        esac
-        echo "release_tag=$_release_tag" >> $GITHUB_ENV
-        
+               
     - name: 取回缓存 staging_dir
       uses: actions/cache@v4
       with:
