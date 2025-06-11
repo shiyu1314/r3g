@@ -16,7 +16,8 @@ jobs:
     strategy:
       matrix:
         repo_info:
-          - {repo_url: "https://github.com/openwrt/openwrt", branch: "openwrt-23.05"}
+          - {branch: "openwrt-23.05"}
+          - {branch: "openwrt-24.10"}
 
 
     steps: 
@@ -48,8 +49,29 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt 
+        git clone $REPO_URL openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        
+    - name: 切换分支
+      working-directory: ./openwrt
+      id: var
+      run: |
+        case $REPO_BRANCH in
+          openwrt-24.10)
+            _release_tag=$(git tag --sort=taggerdate --list 'v24.*' | tail -1)
+            git checkout $_release_tag
+            _prerelease=false
+            ;;
+          openwrt-23.05)
+            _release_tag=$(git tag --sort=taggerdate --list 'v23.*' | tail -1)
+            git checkout $_release_tag
+            _prerelease=false
+            ;;
+          *)
+            echo "Can't get local/upstream's branch/tags"
+            ;;
+        esac
+        echo "release_tag=$_release_tag" >> $GITHUB_ENV 
            
  
     - name: 更新feeds
