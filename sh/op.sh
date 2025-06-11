@@ -13,8 +13,8 @@ function git_sparse_clone() {
 echo 'src-git xd https://github.com/shiyu1314/openwrt-packages' >>feeds.conf.default
 
 
-git_sparse_clone openwrt-23.05 https://github.com/immortalwrt/luci modules/luci-base
-git_sparse_clone openwrt-23.05 https://github.com/immortalwrt/luci modules/luci-mod-status
+git_sparse_clone "$REPO_BRANCH" https://github.com/immortalwrt/luci modules/luci-base
+git_sparse_clone "$REPO_BRANCH" https://github.com/immortalwrt/luci modules/luci-mod-status
 
 git clone -b main --depth 1 --single-branch https://github.com/AngelaCooljx/luci-theme-material3 package/luci-theme-material3
 # luci-theme-material3
