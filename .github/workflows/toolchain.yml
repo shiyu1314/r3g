@@ -42,7 +42,7 @@ jobs:
       run: |
         TAG="$(date +'%Y%m%d')-$(openssl rand -hex 3)"
         echo "tag=$TAG" >> $GITHUB_ENV
-        echo "REPO_URL=${{ matrix.repo_info.repo_url }}" >> $GITHUB_ENV
+        echo "REPO_URL=https://github.com/openwrt/openwrt" >> $GITHUB_ENV
         echo "REPO_BRANCH=${{ matrix.repo_info.branch }}" >> $GITHUB_ENV
 
     - name: 克隆源代码
