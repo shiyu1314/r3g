@@ -30,6 +30,9 @@ if [ "$PKG_UPGRADE" != 1 ]; then
 	uci batch <<-EOF
 		set luci.themes.material3=/luci-static/material3
 		set luci.main.mediaurlbase=/luci-static/material3
+  	        set luci.themes.Material3Blue=/luci-static/material3-blue
+	        set luci.themes.Material3Green=/luci-static/material3-green
+	        set luci.themes.Material3Red=/luci-static/material3-red
 		commit luci
 	EOF
 fi
