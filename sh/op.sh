@@ -21,6 +21,7 @@ git clone -b main --depth 1 --single-branch https://github.com/AngelaCooljx/luci
 rm -rf package/luci-theme-material3/{.git,Readme.md}
 sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|' package/luci-theme-material3/Makefile
 sed -i '/uci -q delete luci.themes.Material3Red/a \	uci set luci.main.mediaurlbase=\x27/luci-static/bootstrap\x27' package/luci-theme-material3/Makefile
+sed -i '2933d' package/luci-theme-material3/htdocs/luci-static/material3/cascade.css
 rm -rf package/luci-theme-material3/root/etc/uci-defaults/30_luci-theme-material3
 echo '#!/bin/sh
 
